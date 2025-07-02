@@ -1,4 +1,4 @@
-package org.gestion.boisson.models;
+package org.gestion.boisson.features.mouvements.enums;
 
 public enum TypeMouvement {
     ENTREE,

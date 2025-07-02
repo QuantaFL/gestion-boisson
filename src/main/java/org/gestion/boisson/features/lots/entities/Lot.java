@@ -1,7 +1,9 @@
-package org.gestion.boisson.models;
+package org.gestion.boisson.features.lots.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
+import org.gestion.boisson.features.boissons.entities.Boisson;
 
 import java.time.LocalDateTime;
 
@@ -21,9 +23,12 @@ public class Lot {
     @Column(unique = true, updatable = false)
     private String numeroLot;
 
-    @Column(updatable = false)
+    @Min(0)
+    @Column(name = "quantite_initial", updatable = false, columnDefinition = "integer CHECK (quantite_initial >= 0)")
     private int quantiteInitial;
 
+    @Min(0)
+    @Column(name = "quantite_actuelle", columnDefinition = "integer CHECK (quantite_actuelle >= 0)")
     private int quantiteActuelle;
 
     @Column(updatable = false)
@@ -40,5 +45,12 @@ public class Lot {
     public void prePersist() {
         this.dateEntree = LocalDateTime.now();
         this.quantiteActuelle = this.quantiteInitial;
+    }
+
+    @PreUpdate
+    public void validateQuantities() {
+        if (quantiteActuelle > quantiteInitial) {
+            throw new IllegalArgumentException("quantiteActuelle cannot be greater than quantiteInitial");
+        }
     }
 }

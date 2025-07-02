@@ -1,4 +1,4 @@
-package org.gestion.boisson.models;
+package org.gestion.boisson.features.utilisateurs.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,11 +18,13 @@ public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, updatable = false)
     private String email;
     private String motDePasse;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
     @PrePersist
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();

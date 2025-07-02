@@ -1,7 +1,10 @@
-package org.gestion.boisson.models;
+package org.gestion.boisson.features.stocks.entities;
+
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
+import org.gestion.boisson.features.boissons.entities.Boisson;
 
 import java.time.LocalDateTime;
 
@@ -11,29 +14,19 @@ import java.time.LocalDateTime;
 @Builder
 @Setter
 @Getter
-@Table(name = "boissons")
-public class Boisson {
-
+public class Stock{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, updatable = false)
-    private String description;
-
-    private Double volume;
-
-    private String unite;
-
-    private Double prixUnitaire;
-
-    private int seuil;
-
-    private boolean isActive;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "boisson_id",updatable = false)
+    private Boisson boisson;
+    @Min(0)
+    @Column(name = "quantite_totale",updatable = false, columnDefinition = "integer CHECK (quantite_totale >= 0)")
+    private int quantiteTotale;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
     @PrePersist
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();

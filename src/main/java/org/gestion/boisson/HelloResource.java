@@ -9,6 +9,7 @@ import org.gestion.boisson.utils.JPAUtil;
 public class HelloResource {
     @GET
     @Produces("text/plain")
+//    @Produces("application/json")
     public String hello() {
 
         JPAUtil.createEntityManager();
