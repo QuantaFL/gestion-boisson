@@ -1,10 +1,19 @@
 package org.gestion.boisson.utils;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+/**
+ * Utility class for managing JPA EntityManagerFactory and EntityManager.
+ * This class provides methods to create and manage the EntityManagerFactory,
+ * as well as to create EntityManager instances.
+ */
+
 public class JPAUtil {
+
 
     private static EntityManagerFactory em;
 
@@ -12,6 +21,8 @@ public class JPAUtil {
         try {
             em = Persistence.createEntityManagerFactory("oulyPU");
         } catch (Throwable ex) {
+            System.err.println("Initial EntityManagerFactory creation failed." + ex.getMessage());
+            ex.printStackTrace();
             throw new ExceptionInInitializerError(ex);
         }
     }

@@ -8,4 +8,6 @@ public interface BoissonService {
     void supprimerBoisson(Long id);
     Boisson getBoissonDetails(String name);
     boolean boissonExists(String name);
+
+    void save(Boisson boisson);
 }
