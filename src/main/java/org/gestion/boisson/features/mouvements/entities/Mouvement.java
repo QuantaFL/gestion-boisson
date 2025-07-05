@@ -30,7 +30,7 @@ public class Mouvement {
     private TypeMouvement type;
 
     @Column(updatable = false)
-    private LocalDateTime dateMouvement;
+    private String dateMouvement;
 
     @Min(0)
     @Column(updatable = false, columnDefinition = "integer CHECK (quantite >= 0)")
@@ -51,8 +51,10 @@ public class Mouvement {
     @Enumerated(EnumType.STRING)
     private TypeAjustement typeAjustement;
 
+    public String raison;
+
     @PrePersist
     public void prePersist() {
-        this.dateMouvement = LocalDateTime.now();
+        this.dateMouvement = String.valueOf(LocalDateTime.now());
     }
 }
