@@ -5,4 +5,5 @@ public enum TypeAjustement {
     VOL,
     PERTE,
     RETOUR_CLIENT,
+    AJUSTEMENT_INVENTAIRE,
 }
