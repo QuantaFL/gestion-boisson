@@ -1,6 +1,7 @@
 # README du dossier mouvements
 
 Ce dossier gère les mouvements de stock (entrée, sortie, ajustement) dans l'application.
+## **URGENT Remplacer les LocalDateTime par du String pour éviter les problèmes de sérialisation JSON.**
 
 ## Structure du dossier
 - **controller/** : Contrôleur REST (MouvementController.java) pour recevoir les requêtes HTTP (POST, etc.)
