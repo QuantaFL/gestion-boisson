@@ -41,6 +41,8 @@ public class Lot {
     @JoinColumn(name = "boisson_id",updatable = false)
     private Boisson boisson;
 
+    private boolean vendable;
+
     @PrePersist
     public void prePersist() {
         this.dateEntree = LocalDateTime.now();
