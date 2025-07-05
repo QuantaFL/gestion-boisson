@@ -37,4 +37,5 @@ public class Stock{
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
 }
