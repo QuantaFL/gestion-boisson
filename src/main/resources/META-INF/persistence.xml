@@ -9,10 +9,17 @@
 
         <properties>
             <!-- Database connection settings -->
-            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <!-- Use PostgreSQL
+                     <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/testage"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="oulimata2"/>
+
+            -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/jee_boisson_database"/>
+            <property name="jakarta.persistence.jdbc.user" value="lover"/>
+            <property name="jakarta.persistence.jdbc.password" value="lover"/>
 
             <!-- Hibernate properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
