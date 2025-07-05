@@ -53,6 +53,39 @@ Chaque membre doit :
 - S’entraider et s’assurer que tout le monde comprend les enjeux métier.
 
 ---
+# Docker-compose : 
+un docker-compose contenant des images de postgrès et de pgAdmin a été ajouté pour uniformiser l'accès à la BDD. 
+vous trouverez dans le fichier exemple du .env les variables necessaire pour bien l'exploiter.
 
+### overview des variables : 
+- **POSTGRES_USER** : l'utilisateur de postgres 
+- **POSTGRES_PASSWORD** : le mot de passe de l'utilisateur de postgres 
+- **POSTGRES_DB** :  le nom de la base de données 
+- **PGADMIN_DEFAULT_EMAIL** :  l'email de connexion à l'interface de pgAdmin 
+- **PGADMIN_DEFAULT_PASSWORD** : le mot de passe pour pgAdmin
+- **POSTGRES_PORT** : le port exposé pour utiliser postgrès sur votre machine 
+- **PGADMIN_PORT** : le port par lequel vous allez accéder à votre pgAdmin sur votre machine
+```
+POSTGRES_USER=lover 
+POSTGRES_PASSWORD=lover
+POSTGRES_DB=jee_boisson_database
+PGADMIN_DEFAULT_EMAIL=quanta@gmail.com
+PGADMIN_DEFAULT_PASSWORD=quanta123
+POSTGRES_PORT=5433
+PGADMIN_PORT=5000
+```
+- **Pour lancer le docker-compose** : docker compose up -d
+- **Pour arrêter le docker-compose** : docker compose down
+- **Pour accéder à pgAdmin** : http://localhost:5000
+- **Pour connecter pgAdmin à la base de données** : 
+  - Ouvrir pgAdmin
+  - Créer un nouveau serveur
+  - Nom du serveur : `jee_boisson_server`
+  - Hôte : postgres-db
+  - Port : `5432`
+  - Nom d'utilisateur : `lover`
+  - Mot de passe : `lover`
+
+```
 N’hésitez pas à enrichir ce document au fil de l’avancement du projet !
 
