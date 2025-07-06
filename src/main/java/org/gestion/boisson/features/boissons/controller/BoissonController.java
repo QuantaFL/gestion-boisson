@@ -78,5 +78,25 @@ public class BoissonController {
                     .entity("Error fetching boisson: " + e.getMessage()).build();
         }
     }
+    @PUT
+    @Path("/")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public  Response updateBoisson(BoissonDto boissonDto) {
+        try {
+            log.info("Updating boisson: {}", boissonDto);
+            if (boissonDto == null || boissonDto.getId() == null || boissonDto.getNom() == null) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                        .entity("Boisson data is incomplete or invalid").build();
+            }
+            var boisson = boissonMapper.toEntity(boissonDto);
+            var updatedBoisson = boissonService.modifierBoisson(boisson);
+            return Response.ok(boissonMapper.toDto(updatedBoisson)).build();
+        } catch (Exception e) {
+            log.error("Error updating boisson: {}", e.getMessage(), e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error updating boisson: " + e.getMessage()).build();
+        }
+    }
 
 }
