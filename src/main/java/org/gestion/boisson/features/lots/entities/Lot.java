@@ -20,7 +20,7 @@ public class Lot {
     @Column(nullable = false)
     private Long id;
 
-    @Column(unique = true, updatable = false)
+    @Column(unique = true, updatable = false,nullable = false)
     private String numeroLot;
 
     @Min(0)
