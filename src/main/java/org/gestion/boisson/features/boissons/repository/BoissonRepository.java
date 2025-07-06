@@ -3,6 +3,7 @@ package org.gestion.boisson.features.boissons.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.gestion.boisson.features.boissons.dao.BoissonDao;
 import org.gestion.boisson.features.boissons.entities.Boisson;
 import org.gestion.boisson.utils.JPAUtil;
@@ -11,9 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+@Slf4j
 public class BoissonRepository implements BoissonDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(BoissonRepository.class);
+   // private static final Logger logger = LoggerFactory.getLogger(BoissonRepository.class);
     private EntityManager em = JPAUtil.createEntityManager();
     /**
      * Retrieves a beverage by its name.
@@ -30,13 +32,13 @@ public class BoissonRepository implements BoissonDao {
                     ;
 
 
-            logger.info("Boisson trouvée avec le nom '{}': {}", nom, boisson);
+            log.info("Boisson trouvée avec le nom '{}': {}", nom, boisson);
             return boisson;
         } catch (NoResultException e) {
-            logger.warn("Aucune boisson trouvée avec le nom '{}'", nom);
+            log.warn("Aucune boisson trouvée avec le nom '{}'", nom);
             throw  e ;
         } catch (Exception e) {
-            logger.error("Erreur lors de la récupération de la boisson par nom", e);
+            log.error("Erreur lors de la récupération de la boisson par nom", e);
             throw e;
         }
     }
@@ -47,14 +49,14 @@ public class BoissonRepository implements BoissonDao {
         try {
             if (this.getByNom(boisson.getNom()) == null) {
                 em.persist(boisson);
-                logger.info("Boisson créée: {}", boisson);
+                log.info("Boisson créée: {}", boisson);
             } else {
                 boisson = em.merge(boisson);
-                logger.info("Boisson mise à jour: {}", boisson);
+                log.info("Boisson mise à jour: {}", boisson);
             }
             return boisson;
         } catch (Exception e) {
-            logger.error("Erreur lors de la sauvegarde de la boisson", e);
+            log.error("Erreur lors de la sauvegarde de la boisson", e);
             throw e;
         }
     }
@@ -68,10 +70,10 @@ public class BoissonRepository implements BoissonDao {
     public List<Boisson> getAll() {
         try {
             List<Boisson> list = em.createNamedQuery("Boisson.findAll", Boisson.class).getResultList();
-            logger.info("Récupération de toutes les boissons : {} éléments", list.size());
+            log.info("Récupération de toutes les boissons : {} éléments", list.size());
             return list;
         } catch (Exception e) {
-            logger.error("Erreur lors de la récupération de toutes les boissons", e);
+            log.error("Erreur lors de la récupération de toutes les boissons", e);
             throw e;
         }
     }
