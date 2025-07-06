@@ -5,6 +5,8 @@ import org.gestion.boisson.features.boissons.entities.Boisson;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BoissonMapperImpl implements BoissonMapper {
 
@@ -60,5 +62,27 @@ public class BoissonMapperImpl implements BoissonMapper {
             dto.setUpdatedAt(entity.getUpdatedAt().toString());
 
         return dto;
+    }
+
+    @Override
+    public List<BoissonDto> toDtoList(List<Boisson> boissons) {
+        if (boissons == null || boissons.isEmpty()) {
+            return List.of();
+        }
+
+        return boissons.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Boisson> toEntityList(List<BoissonDto> dtos) {
+        if (dtos == null || dtos.isEmpty()) {
+            return List.of();
+        }
+
+        return dtos.stream()
+                .map(this::toEntity)
+                .collect(Collectors.toList());
     }
 }
