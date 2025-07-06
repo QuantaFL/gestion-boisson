@@ -88,7 +88,21 @@ public class BoissonRepository implements BoissonDao {
 
     @Override
     public Boisson update(Boisson boisson) {
-        return null;
+        if(boisson.getId() == null){
+            log.warn("Impossible de mettre à jour la boisson car l'ID est null");
+            return null;
+        }
+        try {
+            em.getTransaction().begin();
+            Boisson updatedBoisson = em.merge(boisson);
+            em.getTransaction().commit();
+            log.info("Boisson mise à jour avec succès : {}", updatedBoisson);
+            return updatedBoisson;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            log.error("Erreur lors de la mise à jour de la boisson", e);
+            throw e;
+        }
     }
 
     @Override
