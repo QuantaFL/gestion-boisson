@@ -98,5 +98,19 @@ public class BoissonController {
                     .entity("Error updating boisson: " + e.getMessage()).build();
         }
     }
+    @GET
+    @Path("/actives")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public  Response getActiveBoissons() {
+        try {
+            log.info("Fetching all active boissons");
+            return Response.ok(boissonMapper.toDtoList(boissonService.getAllBoissonsActives())).build();
+        } catch (Exception e) {
+            log.error("Error fetching active boissons: {}", e.getMessage(), e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error fetching active boissons: " + e.getMessage()).build();
+        }
+    }
 
 }
