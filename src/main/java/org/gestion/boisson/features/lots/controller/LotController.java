@@ -12,6 +12,9 @@ import org.gestion.boisson.features.lots.dto.LotDto;
 import org.gestion.boisson.features.lots.mappers.LotMapper;
 import org.gestion.boisson.features.lots.services.LotService;
 
+/**
+ * Controller for handling lot-related HTTP requests.
+ */
 @RequestScoped
 @Path("/lots")
 @Produces(MediaType.APPLICATION_JSON)
@@ -24,11 +27,20 @@ public class LotController {
     @Inject
     private LotMapper lotMapper;
 
+    /**
+     * Health check endpoint.
+     * @return A response indicating that the service is running.
+     */
     @GET
     @Path("/health")
     public Response healthCheck() {
         return Response.ok("Lot service is running").build();
     }
+
+    /**
+     * Retrieves all available lots.
+     * @return A response containing a list of all available lots.
+     */
     @GET
     @Path("")
     public Response getAllLots() {
@@ -41,6 +53,12 @@ public class LotController {
             return Response.serverError().entity("Erreur lors de la récupération des lots").build();
         }
     }
+
+    /**
+     * Adds a new lot.
+     * @param lotDto The lot to add.
+     * @return A response indicating that the lot was created.
+     */
     @POST
     @Path("/")
     public Response addLot(LotDto lotDto) {
@@ -56,6 +74,12 @@ public class LotController {
             return Response.serverError().entity("Erreur lors de l'ajout du lot").build();
         }
     }
+
+    /**
+     * Updates an existing lot.
+     * @param lotDto The lot to update.
+     * @return A response indicating that the lot was updated.
+     */
     @PUT
     @Path("/")
     public Response updateLot(LotDto lotDto) {
@@ -74,6 +98,12 @@ public class LotController {
             return Response.serverError().entity("Erreur lors de la mise à jour du lot").build();
         }
     }
+
+    /**
+     * Checks if a lot is available.
+     * @param lotId The ID of the lot to check.
+     * @return A response containing a boolean indicating whether the lot is available.
+     */
     @GET
     @Path("/{lotId}/is-available")
     public Response isAvailable(@PathParam("lotId") Long lotId) {
@@ -85,6 +115,12 @@ public class LotController {
             return Response.serverError().entity("Erreur lors de la vérification de la disponibilité").build();
         }
     }
+
+    /**
+     * Checks if a lot is expired.
+     * @param lotId The ID of the lot to check.
+     * @return A response containing a boolean indicating whether the lot is expired.
+     */
     @GET
     @Path("/{lotId}/is-expired")
     public Response isExpired(@PathParam("lotId") Long lotId) {
@@ -96,6 +132,12 @@ public class LotController {
             return Response.serverError().entity("Erreur lors de la vérification de la péremption").build();
         }
     }
+
+    /**
+     * Retrieves all lots for a given beverage, ordered by expiration date.
+     * @param boissonId The ID of the beverage.
+     * @return A response containing a list of lots, ordered by expiration date.
+     */
     @GET
     @Path("/boisson/{boissonId}/ordre-peremption")
     public Response getLotsByExpirationOrder(@PathParam("boissonId") Long boissonId) {
@@ -110,6 +152,13 @@ public class LotController {
             return Response.serverError().entity("Erreur lors du tri des lots par date de péremption").build();
         }
     }
+
+    /**
+     * Removes a given quantity from a lot.
+     * @param lotId The ID of the lot.
+     * @param quantity The quantity to remove.
+     * @return A response indicating whether the quantity was successfully removed.
+     */
     @POST
     @Path("/{lotId}/remove-quantity")
     public Response removeQuantity(@PathParam("lotId") Long lotId, @QueryParam("quantity") int quantity) {
