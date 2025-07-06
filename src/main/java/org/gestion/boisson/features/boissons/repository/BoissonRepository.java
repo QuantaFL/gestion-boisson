@@ -2,6 +2,7 @@ package org.gestion.boisson.features.boissons.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.transaction.Transactional;
 import org.gestion.boisson.features.boissons.dao.BoissonDao;
 import org.gestion.boisson.features.boissons.entities.Boisson;
 import org.gestion.boisson.utils.JPAUtil;
@@ -11,8 +12,15 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class BoissonRepository implements BoissonDao {
+
     private static final Logger logger = LoggerFactory.getLogger(BoissonRepository.class);
     private EntityManager em = JPAUtil.createEntityManager();
+    /**
+     * Retrieves a beverage by its name.
+     *
+     * @param nom the name of the beverage
+     * @return the beverage entity, or null if not found
+     */
     @Override
     public Boisson getByNom(String nom) {
         try {
@@ -34,8 +42,21 @@ public class BoissonRepository implements BoissonDao {
     }
 
     @Override
+    @Transactional
     public Boisson save(Boisson boisson) {
-        return null;
+        try {
+            if (boisson.getId() == null) {
+                em.persist(boisson);
+                logger.info("Boisson créée: {}", boisson);
+            } else {
+                boisson = em.merge(boisson);
+                logger.info("Boisson mise à jour: {}", boisson);
+            }
+            return boisson;
+        } catch (Exception e) {
+            logger.error("Erreur lors de la sauvegarde de la boisson", e);
+            throw e;
+        }
     }
 
     @Override
