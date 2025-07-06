@@ -36,18 +36,39 @@ public class BoissonRepository implements BoissonDao {
             return boisson;
         } catch (NoResultException e) {
             log.warn("Aucune boisson trouvée avec le nom '{}'", nom);
-            throw  e ;
+            return  null;
         } catch (Exception e) {
             log.error("Erreur lors de la récupération de la boisson par nom", e);
             throw e;
         }
     }
 
+
     @Override
+    public Boisson save(Boisson boisson) {
+        try {
+            em.getTransaction().begin();
+            if (getByNom(boisson.getNom()) == null) {
+                em.persist(boisson);
+                log.info("Boisson créée: {}", boisson);
+            } else {
+                boisson = em.merge(boisson);
+                log.info("Boisson mise à jour: {}", boisson);
+            }
+            em.getTransaction().commit();
+            return boisson;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            log.error("Erreur lors de la sauvegarde de la boisson", e);
+            throw e;
+        }
+    }
+    /*
+    * @Override
     @Transactional
     public Boisson save(Boisson boisson) {
         try {
-            if (this.getByNom(boisson.getNom()) == null) {
+            if (getByNom(boisson.getNom()) == null) {
                 em.persist(boisson);
                 log.info("Boisson créée: {}", boisson);
             } else {
@@ -60,6 +81,10 @@ public class BoissonRepository implements BoissonDao {
             throw e;
         }
     }
+
+    *
+    * */
+
 
     @Override
     public Boisson update(Boisson boisson) {
