@@ -10,12 +10,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * Implementation of the LotMapper interface.
+ */
 public class LotMapperImpl implements LotMapper {
     private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     @Inject
     private BoissonMapper boissonMapper;
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Lot toEntity(LotDto dto) {
         if (dto == null) return null;
@@ -32,6 +38,9 @@ public class LotMapperImpl implements LotMapper {
                 .build();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LotDto toDto(Lot entity) {
         if (entity == null) return null;
@@ -48,11 +57,17 @@ public class LotMapperImpl implements LotMapper {
         return dto;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LotDto> toDtoList(List<Lot> lots) {
         return lots.stream().map(this::toDto).collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Lot> toEntityList(List<LotDto> dtos) {
         return dtos.stream().map(this::toEntity).collect(Collectors.toList());
