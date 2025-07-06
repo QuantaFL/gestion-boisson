@@ -12,6 +12,16 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Table(name = "boissons")
+@NamedQueries({
+        @NamedQuery(name = "Boisson.findAll", query = "SELECT b FROM Boisson b"),
+        @NamedQuery(name = "Boisson.findByNom", query = "SELECT b FROM Boisson b WHERE b.nom = :nom"),
+        @NamedQuery(name = "Boisson.findByActive", query = "SELECT b FROM Boisson b WHERE b.isActive = :active"),
+        @NamedQuery(name = "Boisson.findByPrixMoinsQue", query = "SELECT b FROM Boisson b WHERE b.prixUnitaire < :prix"),
+        @NamedQuery(name = "Boisson.findBySeuilMoinsQue", query = "SELECT b FROM Boisson b WHERE b.seuil < :seuil"),
+        @NamedQuery(name = "Boisson.findByVolume", query = "SELECT b FROM Boisson b WHERE b.volume = :volume"),
+        @NamedQuery(name = "Boisson.findBetweenPrix", query = "SELECT b FROM Boisson b WHERE b.prixUnitaire BETWEEN :min AND :max"),
+        @NamedQuery(name = "Boisson.findRecentes", query = "SELECT b FROM Boisson b WHERE b.createdAt >= :date")
+})
 public class Boisson{
 
     @Id
