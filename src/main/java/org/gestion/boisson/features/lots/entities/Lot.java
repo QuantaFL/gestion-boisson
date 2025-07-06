@@ -13,6 +13,20 @@ import java.time.LocalDateTime;
 @Builder
 @Setter
 @Getter
+@NamedQueries({
+        @NamedQuery(name = "Lot.findAll", query = "SELECT l FROM Lot l"
+        ),
+        @NamedQuery(name = "Lot.findByNumeroLot", query = "SELECT l FROM Lot l WHERE l.numeroLot = :numeroLot"
+        ),
+        @NamedQuery(name = "Lot.findDisponiblesByBoisson", query = "SELECT l FROM Lot l WHERE l.boisson.id = :boissonId AND l.vendable = true AND l.quantiteActuelle > 0"
+        ),
+        @NamedQuery(name = "Lot.findExpiringBefore", query = "SELECT l FROM Lot l WHERE l.datePeremption < :limitDate"
+        ),
+        @NamedQuery(name = "Lot.findByBoissonBetweenDates", query = "SELECT l FROM Lot l WHERE l.boisson.id = :boissonId AND l.dateEntree BETWEEN :startDate AND :endDate"
+        ),
+        @NamedQuery(name = "Lot.countByBoisson", query = "SELECT COUNT(l) FROM Lot l WHERE l.boisson.id = :boissonId"
+        )
+})
 @Table(name = "lots")
 public class Lot {
     @Id
