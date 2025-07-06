@@ -17,5 +17,6 @@ public interface LotService {
     List<Mouvement> findByBoissonId(Long boissonId);
     List<Mouvement> findByLotId(Long lotId);
 
+
     void save(Lot lot);
 }
