@@ -66,6 +66,13 @@ public class BoissonRepository implements BoissonDao {
 
     @Override
     public List<Boisson> getAll() {
-        return List.of();
+        try {
+            List<Boisson> list = em.createNamedQuery("Boisson.findAll", Boisson.class).getResultList();
+            logger.info("Récupération de toutes les boissons : {} éléments", list.size());
+            return list;
+        } catch (Exception e) {
+            logger.error("Erreur lors de la récupération de toutes les boissons", e);
+            throw e;
+        }
     }
 }
