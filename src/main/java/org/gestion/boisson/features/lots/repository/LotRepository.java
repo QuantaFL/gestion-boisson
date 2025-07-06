@@ -64,7 +64,14 @@ public class LotRepository  implements LotDao {
 
     @Override
     public List<Lot> getAllLots() {
-        return List.of();
+        try {
+            List<Lot> lots = em.createNamedQuery("Lot.findAll", Lot.class).getResultList();
+            log.info("Récupération de tous les lots : {} éléments", lots.size());
+            return lots;
+        } catch (Exception e) {
+            log.error("Erreur lors de la récupération de tous les lots", e);
+            throw e;
+        }
     }
 
     @Override
