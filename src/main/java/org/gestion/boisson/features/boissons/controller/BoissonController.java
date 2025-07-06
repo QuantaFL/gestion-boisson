@@ -58,4 +58,25 @@ public class BoissonController {
                     .entity("Erreur lors de l'ajout de la boisson : " + e.getMessage()).build();
         }
     }
+
+    @GET
+    @Path("/{nom}")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getBoisson(@PathParam("nom") String nom) {
+        try {
+            log.info("Fetching boisson by name: {}", nom);
+            var boisson = boissonService.getBoissonDetails(nom);
+            if (boisson == null) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("Boisson with name '" + nom + "' not found").build();
+            }
+            return Response.ok(boissonMapper.toDto(boisson)).build();
+        } catch (Exception e) {
+            log.error("Error fetching boisson by name '{}': {}", nom, e.getMessage(), e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error fetching boisson: " + e.getMessage()).build();
+        }
+    }
+
 }
