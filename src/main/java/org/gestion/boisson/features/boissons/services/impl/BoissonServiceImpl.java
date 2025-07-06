@@ -8,6 +8,8 @@ import org.gestion.boisson.features.boissons.entities.Boisson;
 import org.gestion.boisson.features.boissons.repository.BoissonRepository;
 import org.gestion.boisson.features.boissons.services.BoissonService;
 
+import java.util.List;
+
 @Named
 @ApplicationScoped
 @Slf4j
@@ -70,6 +72,18 @@ public class BoissonServiceImpl implements BoissonService {
             return exists;
         } catch (Exception e) {
             log.error("Erreur lors de la vérification de l'existence de la boisson : {}", name, e);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<Boisson> getAllBoissons() {
+        try {
+            List<Boisson> boissons = boissonRepository.getAll();
+            log.info("Récupération de toutes les boissons : {} éléments", boissons.size());
+            return boissons;
+        } catch (Exception e) {
+            log.error("Erreur lors de la récupération de toutes les boissons", e);
             throw e;
         }
     }
