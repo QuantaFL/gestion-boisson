@@ -112,5 +112,19 @@ public class BoissonController {
                     .entity("Error fetching active boissons: " + e.getMessage()).build();
         }
     }
+    @GET
+    @Path("/inactives")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public  Response getInactiveBoissons() {
+        try {
+            log.info("Fetching all inactive boissons");
+            return Response.ok(boissonMapper.toDtoList(boissonService.getAllBoissonsInactives())).build();
+        } catch (Exception e) {
+            log.error("Error fetching inactive boissons: {}", e.getMessage(), e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error fetching active boissons: " + e.getMessage()).build();
+        }
+    }
 
 }

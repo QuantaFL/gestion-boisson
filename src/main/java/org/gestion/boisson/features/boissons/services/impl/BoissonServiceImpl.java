@@ -102,4 +102,19 @@ public class BoissonServiceImpl implements BoissonService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<Boisson> getAllBoissonsInactives() {
+        try {
+            List<Boisson> boissons = boissonRepository.getAll()
+                    .stream()
+                    .filter(boisson -> !boisson.isActive())
+                    .toList();
+            log.info("Récupération des boissons inactives : {} éléments", boissons.size());
+            return boissons;
+        } catch (Exception e) {
+            log.error("Erreur lors de la récupération des boissons inactives", e);
+            throw new RuntimeException(e);
+        }
+    }
 }
