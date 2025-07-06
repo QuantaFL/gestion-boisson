@@ -3,17 +3,18 @@ package org.gestion.boisson.features.lots.services.impl;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.gestion.boisson.features.lots.entities.Lot;
 import org.gestion.boisson.features.lots.repository.LotRepository;
 import org.gestion.boisson.features.lots.services.LotService;
 import org.gestion.boisson.features.mouvements.entities.Mouvement;
-import org.gestion.boisson.utils.JPAUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+/**
+ * Implementation of the LotService interface.
+ */
 @Named
 @ApplicationScoped
 @Slf4j
@@ -21,12 +22,17 @@ public class LotServiceImpl implements LotService {
     @Inject
     private LotRepository lotRepository;
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean addQuantityToLot(Long lotId, int quantity) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removeQuantityFromLot(Long lotId, int quantity) {
         try {
@@ -58,6 +64,9 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isExpired(Long lotId) {
         try {
@@ -71,6 +80,9 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isLotAvailable(Long lotId) {
         try {
@@ -84,6 +96,9 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Lot> getAllLotsByBoisson(Long boissonId) {
         try {
@@ -96,6 +111,9 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Lot> getAllLotOrderByExpirationDate(Long boissonId) {
         try {
@@ -108,6 +126,9 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean updateLot(Lot lot) {
         try {
@@ -120,6 +141,9 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Lot> getAllLotsDisponibles() {
         try {
@@ -135,18 +159,25 @@ public class LotServiceImpl implements LotService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Mouvement> findByBoissonId(Long boissonId) {
         return List.of();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Mouvement> findByLotId(Long lotId) {
         return List.of();
     }
 
-
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(Lot lot) {
         try {
