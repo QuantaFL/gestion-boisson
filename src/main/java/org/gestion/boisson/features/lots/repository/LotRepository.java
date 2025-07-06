@@ -1,6 +1,7 @@
 package org.gestion.boisson.features.lots.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.extern.slf4j.Slf4j;
 import org.gestion.boisson.features.lots.dao.LotDao;
 import org.gestion.boisson.features.lots.entities.Lot;
@@ -90,6 +91,18 @@ public class LotRepository  implements LotDao {
 
     @Override
     public Lot getByNumero(String numero) {
-        return null;
+        try {
+            Lot lot = em.createNamedQuery("Lot.findByNumeroLot", Lot.class)
+                    .setParameter("numeroLot", numero)
+                    .getSingleResultOrNull();
+            log.info("Lot trouvé avec le numéro '{}': {}", numero, lot);
+            return lot;
+        } catch (NoResultException e) {
+            log.warn("Aucun lot trouvé avec le numéro '{}'", numero);
+            return null;
+        } catch (Exception e) {
+            log.error("Erreur lors de la récupération du lot par numéro", e);
+            throw e;
+        }
     }
 }
