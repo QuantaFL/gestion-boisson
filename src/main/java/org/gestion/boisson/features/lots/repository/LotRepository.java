@@ -8,10 +8,17 @@ import org.gestion.boisson.features.lots.entities.Lot;
 import org.gestion.boisson.utils.JPAUtil;
 
 import java.util.List;
+
+/**
+ * Repository for Lot entities.
+ */
 @Slf4j
 public class LotRepository  implements LotDao {
     private EntityManager em = JPAUtil.createEntityManager();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Lot saveLot(Lot lot) {
         try {
@@ -27,6 +34,9 @@ public class LotRepository  implements LotDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Lot getById(Long id) {
         try {
@@ -44,6 +54,9 @@ public class LotRepository  implements LotDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Lot updateLot(Lot lot) {
         if (lot.getId() == null) {
@@ -63,6 +76,9 @@ public class LotRepository  implements LotDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Lot> getAllLots() {
         try {
@@ -75,6 +91,9 @@ public class LotRepository  implements LotDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Lot> getLotsByBoissonId(Long boissonId) {
         try {
@@ -89,6 +108,9 @@ public class LotRepository  implements LotDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Lot getByNumero(String numero) {
         try {
