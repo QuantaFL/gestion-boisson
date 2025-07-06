@@ -10,6 +10,10 @@ import org.gestion.boisson.features.boissons.services.BoissonService;
 
 import java.util.List;
 
+/**
+ * Implementation of the BoissonService interface.
+ * This class contains the business logic for managing beverages.
+ */
 @Named
 @ApplicationScoped
 @Slf4j
@@ -17,6 +21,9 @@ public class BoissonServiceImpl implements BoissonService {
     @Inject
     private BoissonRepository boissonRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boisson ajouterBoisson(Boisson boisson) {
        try {
@@ -29,6 +36,9 @@ public class BoissonServiceImpl implements BoissonService {
        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boisson modifierBoisson(Boisson boisson) {
         try {
@@ -41,11 +51,17 @@ public class BoissonServiceImpl implements BoissonService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean supprimerBoisson(Long id) {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boisson getBoissonDetails(String name) {
         try {
@@ -63,6 +79,9 @@ public class BoissonServiceImpl implements BoissonService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean boissonExists(String name) {
         try {
@@ -76,6 +95,9 @@ public class BoissonServiceImpl implements BoissonService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Boisson> getAllBoissons() {
         try {
@@ -88,6 +110,9 @@ public class BoissonServiceImpl implements BoissonService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Boisson> getAllBoissonsActives() {
         try {
@@ -103,6 +128,9 @@ public class BoissonServiceImpl implements BoissonService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Boisson> getAllBoissonsInactives() {
         try {
