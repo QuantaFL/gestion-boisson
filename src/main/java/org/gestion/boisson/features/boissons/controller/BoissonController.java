@@ -10,6 +10,10 @@ import org.gestion.boisson.features.boissons.dto.BoissonDto;
 import org.gestion.boisson.features.boissons.mappers.BoissonMapper;
 import org.gestion.boisson.features.boissons.services.BoissonService;
 
+/**
+ * REST controller for managing beverages.
+ * Exposes endpoints for beverage-related operations.
+ */
 @RequestScoped
 @Path("/boissons")
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,11 +24,23 @@ public class BoissonController {
     private BoissonService boissonService;
     @Inject
     private BoissonMapper boissonMapper;
+
+    /**
+     * Health check endpoint.
+     *
+     * @return a 200 OK response with a simple message.
+     */
     @GET
     @Path("/health")
     public Response healthCheck() {
         return Response.ok("Service is running").build();
     }
+
+    /**
+     * Retrieves all beverages.
+     *
+     * @return a 200 OK response with the list of all beverages.
+     */
     @GET
     @Path("")
     public Response getBoissons() {
@@ -38,6 +54,13 @@ public class BoissonController {
                     .entity("Error fetching boissons: " + e.getMessage()).build();
         }
     }
+
+    /**
+     * Adds a new beverage.
+     *
+     * @param boissonDto the beverage data to add.
+     * @return a 201 Created response with the added beverage.
+     */
     @POST
     @Path("/")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
@@ -59,6 +82,12 @@ public class BoissonController {
         }
     }
 
+    /**
+     * Retrieves a beverage by its name.
+     *
+     * @param nom the name of the beverage to retrieve.
+     * @return a 200 OK response with the beverage details, or 404 Not Found.
+     */
     @GET
     @Path("/{nom}")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
@@ -78,6 +107,13 @@ public class BoissonController {
                     .entity("Error fetching boisson: " + e.getMessage()).build();
         }
     }
+
+    /**
+     * Updates an existing beverage.
+     *
+     * @param boissonDto the beverage data to update.
+     * @return a 200 OK response with the updated beverage.
+     */
     @PUT
     @Path("/")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
@@ -98,6 +134,12 @@ public class BoissonController {
                     .entity("Error updating boisson: " + e.getMessage()).build();
         }
     }
+
+    /**
+     * Retrieves all active beverages.
+     *
+     * @return a 200 OK response with the list of active beverages.
+     */
     @GET
     @Path("/actives")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
@@ -112,6 +154,12 @@ public class BoissonController {
                     .entity("Error fetching active boissons: " + e.getMessage()).build();
         }
     }
+
+    /**
+     * Retrieves all inactive beverages.
+     *
+     * @return a 200 OK response with the list of inactive beverages.
+     */
     @GET
     @Path("/inactives")
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "application/*+json"})
