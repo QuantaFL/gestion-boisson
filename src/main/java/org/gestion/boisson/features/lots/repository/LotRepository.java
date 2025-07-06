@@ -76,7 +76,16 @@ public class LotRepository  implements LotDao {
 
     @Override
     public List<Lot> getLotsByBoissonId(Long boissonId) {
-        return List.of();
+        try {
+            List<Lot> lots = em.createNamedQuery("Lot.findDisponiblesByBoisson", Lot.class)
+                    .setParameter("boissonId", boissonId)
+                    .getResultList();
+            log.info("Lots disponibles pour la boisson ID {} : {} éléments", boissonId, lots.size());
+            return lots;
+        } catch (Exception e) {
+            log.error("Erreur lors de la récupération des lots disponibles pour la boisson", e);
+            throw e;
+        }
     }
 
     @Override
