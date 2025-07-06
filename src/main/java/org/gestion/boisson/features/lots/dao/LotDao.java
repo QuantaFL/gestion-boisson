@@ -10,4 +10,5 @@ public interface LotDao {
     Lot updateLot(Lot lot);
     List<Lot> getAllLots();
     List<Lot> getLotsByBoissonId(Long boissonId);
+    Lot getByNumero(String numero);
 }
