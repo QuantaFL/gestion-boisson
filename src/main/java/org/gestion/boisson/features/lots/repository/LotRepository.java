@@ -28,7 +28,19 @@ public class LotRepository  implements LotDao {
 
     @Override
     public Lot getById(Long id) {
-        return null;
+        try {
+            Lot lot = em.find(Lot.class, id);
+            if (lot == null) {
+                log.warn("Aucun lot trouvé avec l'ID {}", id);
+                return null;
+            } else {
+                log.info("Lot récupéré par ID : {}", lot);
+                return lot;
+            }
+        } catch (Exception e) {
+            log.error("Erreur lors de la récupération du lot par ID", e);
+            throw e;
+        }
     }
 
     @Override
