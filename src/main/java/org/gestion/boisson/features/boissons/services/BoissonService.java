@@ -11,4 +11,5 @@ public interface BoissonService {
     Boisson getBoissonDetails(String name);
     boolean boissonExists(String name);
     List<Boisson> getAllBoissons();
+    List<Boisson> getAllBoissonsActives();
 }
