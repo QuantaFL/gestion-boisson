@@ -67,10 +67,6 @@ This document describes the available endpoints for the Lot API.
         "vendable": true,
         "boisson": {
             "id": 10,
-            "nom": "Fanta",
-            "prix": 1.2,
-            "quantite": 330,
-            "categorie": "Soda"
         }
     }
     
