@@ -48,7 +48,7 @@ public class BoissonRepository implements BoissonDao {
     public Boisson save(Boisson boisson) {
         try {
             em.getTransaction().begin();
-            if (getByNom(boisson.getNom()) == null) {
+            if (getByNom(boisson.getNom().trim()) == null) {
                 em.persist(boisson);
                 log.info("Boisson créée: {}", boisson);
             } else {

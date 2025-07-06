@@ -49,7 +49,7 @@ public class BoissonServiceImpl implements BoissonService {
     @Override
     public Boisson getBoissonDetails(String name) {
         try {
-            Boisson boisson = boissonRepository.getByNom(name);
+            Boisson boisson = boissonRepository.getByNom(name.trim());
             if (boisson != null) {
                 log.info("Détails de la boisson récupérés avec succès : {}", boisson);
                 return boisson;
