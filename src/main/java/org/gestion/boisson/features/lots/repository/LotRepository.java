@@ -45,7 +45,21 @@ public class LotRepository  implements LotDao {
 
     @Override
     public Lot updateLot(Lot lot) {
-        return null;
+        if (lot.getId() == null) {
+            log.warn("Impossible de mettre à jour le lot car l'ID est null");
+            return null;
+        }
+        try {
+            em.getTransaction().begin();
+            Lot updated = em.merge(lot);
+            em.getTransaction().commit();
+            log.info("Lot mis à jour avec succès : {}", updated);
+            return updated;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            log.error("Erreur lors de la mise à jour du lot", e);
+            throw e;
+        }
     }
 
     @Override
