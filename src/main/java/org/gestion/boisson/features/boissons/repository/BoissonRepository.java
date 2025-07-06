@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * Repository for beverage data.
+ * This class implements the BoissonDao interface and provides the data access logic for beverages.
+ */
 @Slf4j
 public class BoissonRepository implements BoissonDao {
 
@@ -44,6 +48,12 @@ public class BoissonRepository implements BoissonDao {
     }
 
 
+    /**
+     * Saves a new beverage to the database.
+     *
+     * @param boisson the beverage entity to save
+     * @return the saved beverage entity
+     */
     @Override
     public Boisson save(Boisson boisson) {
         try {
@@ -86,6 +96,12 @@ public class BoissonRepository implements BoissonDao {
     * */
 
 
+    /**
+     * Updates an existing beverage in the database.
+     *
+     * @param boisson the beverage entity to update
+     * @return the updated beverage entity
+     */
     @Override
     public Boisson update(Boisson boisson) {
         if(boisson.getId() == null){
@@ -105,6 +121,11 @@ public class BoissonRepository implements BoissonDao {
         }
     }
 
+    /**
+     * Retrieves all beverages from the database.
+     *
+     * @return a list of all beverage entities
+     */
     @Override
     public List<Boisson> getAll() {
         try {
