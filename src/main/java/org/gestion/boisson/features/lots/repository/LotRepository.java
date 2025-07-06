@@ -1,15 +1,29 @@
 package org.gestion.boisson.features.lots.repository;
 
+import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.gestion.boisson.features.lots.dao.LotDao;
 import org.gestion.boisson.features.lots.entities.Lot;
+import org.gestion.boisson.utils.JPAUtil;
 
 import java.util.List;
-
+@Slf4j
 public class LotRepository  implements LotDao {
+    private EntityManager em = JPAUtil.createEntityManager();
 
     @Override
     public Lot saveLot(Lot lot) {
-        return null;
+        try {
+            em.getTransaction().begin();
+            em.persist(lot);
+            em.getTransaction().commit();
+            log.info("Lot enregistré avec succès : {}", lot);
+            return lot;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            log.error("Erreur lors de la sauvegarde du lot", e);
+            throw e;
+        }
     }
 
     @Override
